@@ -1,35 +1,33 @@
 package com.java.threads;
 
-import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class Consumer implements Runnable {
-    private List<String> buffer;
+    private ArrayBlockingQueue<String> buffer;
     private String color;
-    private ReentrantLock bufferLock;
+    //private ReentrantLock bufferLock;
 
-    public Consumer(List<String> buffer, String color, ReentrantLock bufferLock) {
+    public Consumer(ArrayBlockingQueue<String> buffer, String color) {
         this.buffer = buffer;
         this.color = color;
-        this.bufferLock = bufferLock;
     }
 
     @Override
     public void run() {
         while (true) {
-            if (bufferLock.tryLock()){
+            synchronized (buffer) {
                 try {
                     if (buffer.isEmpty()) {
                         continue;
                     }
-                    if (buffer.get(0).equals(Runner.EOF)) {
+                    if (buffer.peek().equals(Runner.EOF)) {
                         System.out.println(color + " Exiting");
                         break;
                     } else {
-                        System.out.println(color + "Removed" + buffer.remove(0));
+                        System.out.println(color + "Removed" + buffer.take());
                     }
-                } finally {
-                    bufferLock.unlock();
+                } catch (InterruptedException e) {
+                    System.out.println(e.getMessage());
                 }
             }
         }

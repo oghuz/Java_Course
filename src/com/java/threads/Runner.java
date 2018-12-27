@@ -3,10 +3,7 @@ package com.java.threads;
 
 import com.java.JavaConcurrency.ThreadColor;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.*;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * This class for testing your changes.
@@ -39,14 +36,17 @@ public class Runner {
 
         // the java Util concurrent package
 
-        List<String> buffer = new ArrayList<>();
-        ReentrantLock bufferLock = new ReentrantLock();
+//        List<String> buffer = new ArrayList<>();
+        ArrayBlockingQueue<String> buffer = new ArrayBlockingQueue<>(6);
+
+       // ReentrantLock bufferLock = new ReentrantLock();
+        // don't need buffer lock when using ArrayBlockingQueue
         ExecutorService executeService = Executors.newFixedThreadPool(3);
 
-        Producer producer = new Producer(buffer, ThreadColors.ANSI_GREEN, bufferLock);
+        Producer producer = new Producer(buffer, ThreadColors.ANSI_GREEN);
 
-        Consumer consumer1 = new Consumer(buffer, ThreadColors.ANSI_BLUE, bufferLock);
-        Consumer consumer2 = new Consumer(buffer, ThreadColors.ANSI_CYAN, bufferLock);
+        Consumer consumer1 = new Consumer(buffer, ThreadColors.ANSI_BLUE);
+        Consumer consumer2 = new Consumer(buffer, ThreadColors.ANSI_CYAN);
 
         executeService.execute(producer);
         executeService.execute(consumer1);
