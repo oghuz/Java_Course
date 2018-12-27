@@ -29,7 +29,7 @@ public class LambdaMain {
 //            }
 //        });
 
-        Collections.sort(employees, (Employee employee1, Employee employee2)->employee1.getName().compareToIgnoreCase(employee2.getName()));
+        Collections.sort(employees, (employee1, employee2)->employee1.getName().compareToIgnoreCase(employee2.getName()));
 
         for(Employee employee: employees) {
             System.out.println(employee.getName());
