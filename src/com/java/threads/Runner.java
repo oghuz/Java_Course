@@ -1,7 +1,11 @@
 package com.java.threads;
 
+
+import com.java.JavaConcurrency.ThreadColor;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -35,18 +39,36 @@ public class Runner {
 
         // the java Util concurrent package
 
-        List<String> buffer = new ArrayList<String>();
+        List<String> buffer = new ArrayList<>();
         ReentrantLock bufferLock = new ReentrantLock();
+        ExecutorService executeService = Executors.newFixedThreadPool(3);
+
         Producer producer = new Producer(buffer, ThreadColors.ANSI_GREEN, bufferLock);
 
         Consumer consumer1 = new Consumer(buffer, ThreadColors.ANSI_BLUE, bufferLock);
         Consumer consumer2 = new Consumer(buffer, ThreadColors.ANSI_CYAN, bufferLock);
 
-        new Thread(producer).start();
-        new Thread(consumer1).start();
-        new Thread(consumer2).start();
+        executeService.execute(producer);
+        executeService.execute(consumer1);
+        executeService.execute(consumer2);
 
+        Future<String> feature = executeService.submit(new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+                System.out.println(ThreadColor.ANSI_GREEN + " being printed for the callable class");
+                return " This is the callable result";
+            }
+        });
 
+        try {
+            System.out.println(feature.get());
+        }catch (ExecutionException e ) {
+            System.out.println("something is wrong :" + e.getMessage());
+        }catch (InterruptedException e){
+            System.out.println("process was interrupted : " + e.getMessage());
+        }
+
+        executeService.shutdown();
 
     }
 }
