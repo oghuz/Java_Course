@@ -2,6 +2,7 @@ package com.java.threads;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * This class for testing your changes.
@@ -35,10 +36,11 @@ public class Runner {
         // the java Util concurrent package
 
         List<String> buffer = new ArrayList<String>();
-        Producer producer = new Producer(buffer, ThreadColors.ANSI_GREEN);
+        ReentrantLock bufferLock = new ReentrantLock();
+        Producer producer = new Producer(buffer, ThreadColors.ANSI_GREEN, bufferLock);
 
-        Consumer consumer1 = new Consumer(buffer, ThreadColors.ANSI_BLUE);
-        Consumer consumer2 = new Consumer(buffer, ThreadColors.ANSI_CYAN);
+        Consumer consumer1 = new Consumer(buffer, ThreadColors.ANSI_BLUE, bufferLock);
+        Consumer consumer2 = new Consumer(buffer, ThreadColors.ANSI_CYAN, bufferLock);
 
         new Thread(producer).start();
         new Thread(consumer1).start();
