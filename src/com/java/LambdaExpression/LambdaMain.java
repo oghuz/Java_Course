@@ -22,22 +22,14 @@ public class LambdaMain {
         employees.add(Dil);
         employees.add(snow);
 
-//        Collections.sort(employees, new Comparator<Employee>() {
-//            @Override
-//            public int compare(Employee employee1, Employee employee2) {
-//                return employee1.getName().compareToIgnoreCase(employee2.getName());
-//            }
-//        });
 
         Collections.sort(employees, (employee1, employee2)->employee1.getName().compareToIgnoreCase(employee2.getName()));
 
-        for(Employee employee: employees) {
+        employees.forEach(employee -> {
             System.out.println(employee.getName());
-        }
+            System.out.println(employee.getAge());
+        });
 
     }
-
-
-
-
+    
 }
