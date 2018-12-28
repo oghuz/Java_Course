@@ -2,7 +2,9 @@ package com.java.LambdaExpression;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class LambdaMain {
 
@@ -27,8 +29,15 @@ public class LambdaMain {
         employees.add(Dot);
         employees.add(Japan);
 
-        printEmployeesByAge(employees,"Employees over 30 ", employee->employee.getAge() > 30);
+        printEmployeesByAge(employees, "Employees over 30 ", employee -> employee.getAge() > 30);
         printEmployeesByAge(employees, "Employees 30 and under ", employee -> employee.getAge() <= 30);
+
+
+        Random random = new Random();
+        Supplier<Integer> randIntSupplier = () -> random.nextInt(1000);
+        for (int i = 0; i < 10; i++) {
+            System.out.println(randIntSupplier.get());
+        }
 
     }
 
@@ -36,11 +45,13 @@ public class LambdaMain {
         System.out.println("\n" + ageText);
         System.out.println("====================");
 
-        for (Employee employee: employees){
-            if (predicate.test(employee)){
+        for (Employee employee : employees) {
+            if (predicate.test(employee)) {
                 System.out.println(employee.getName());
             }
         }
 
     }
+
+
 }
