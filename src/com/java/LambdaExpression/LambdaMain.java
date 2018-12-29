@@ -57,6 +57,13 @@ public class LambdaMain {
             return employee.getName().substring(0, employee.getName().indexOf(" "));
         };
 
+        System.out.println("=============== Upper case names =====================");
+        Function<Employee, String> upperCase = employee -> employee.getName().toUpperCase();
+
+        employees.forEach(employee -> {
+            System.out.println(upperCase.apply(employee));
+        });
+
         employees.forEach(employee -> {
             System.out.println(getLastName.apply(employee));
         });
