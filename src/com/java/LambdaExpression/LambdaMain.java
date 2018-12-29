@@ -96,10 +96,10 @@ public class LambdaMain {
         // });
         someNumbers
             .stream()
-            .map(String::toUpperCase)
+            .map(s->s.toUpperCase())
             .filter(s->s.startsWith("R"))
             .sorted()
-            .forEach(System.out::println);
+            .forEach(s->System.out.println(s));
     }
 
     private static void printEmployeesByAge(List<Employee> employees, String ageText, Predicate<Employee> predicate) {
