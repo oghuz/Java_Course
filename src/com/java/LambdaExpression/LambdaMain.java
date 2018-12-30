@@ -10,23 +10,57 @@ public class LambdaMain {
 
     public static void main(String[] args) {
 
-//        new Thread(() -> System.out.println("Printing from Lambda Expression")).start();
-//
-//        Employee john = new Employee("John Doe", 32);
-//        Employee Tim = new Employee("Tim Cookie", 23);
-//        Employee Dil = new Employee("Dil Shit", 22);
-//        Employee snow = new Employee("Snow Man", 41);
-//        Employee Dot = new Employee("Dot Ishak", 24);
-//        Employee Japan = new Employee("Japan Tokyo", 54);
-//
-//        List<Employee> employees = new ArrayList<>();
-//
+        new Thread(() -> System.out.println("Printing from Lambda Expression")).start();
+
+        Employee john = new Employee("John Doe", 32);
+        Employee Tim = new Employee("Tim Cookie", 23);
+        Employee Dil = new Employee("Dil Shit", 22);
+        Employee snow = new Employee("Snow Man", 41);
+        Employee Dot = new Employee("Dot Ishak", 24);
+        Employee Japan = new Employee("Japan Tokyo", 54);
+
+        List<Employee> employees = new ArrayList<>();
+
 //        employees.add(john);
 //        employees.add(Tim);
 //        employees.add(Dil);
 //        employees.add(snow);
 //        employees.add(Dot);
 //        employees.add(Japan);
+
+        Department hr = new Department("Human resource");
+        hr.addEmployee(john);
+        hr.addEmployee(Tim);
+        hr.addEmployee(Dot);
+        hr.addEmployee(Japan);
+
+        Department accounting = new Department("Accounting");
+        accounting.addEmployee(Dil);
+        accounting.addEmployee(snow);
+
+        List<Department> departments = new ArrayList<>();
+        departments.add(hr);
+        departments.add(accounting);
+
+        departments.stream()
+                .flatMap(department -> department.getEmployees().stream())
+                .forEach(System.out::println);
+
+        System.out.println("---------------");
+
+        departments.stream()
+                .flatMap(department -> department.getEmployees().stream())
+                .reduce((employee1, employee2) -> employee1.getAge() < employee2.getAge() ? employee1 : employee2)
+                .ifPresent(System.out::println);
+
+
+
+
+
+
+
+
+
 //
 //        printEmployeesByAge(employees, "Employees over 30 ", employee -> employee.getAge() > 30);
 //        printEmployeesByAge(employees, "Employees 30 and under ", employee -> employee.getAge() <= 30);
