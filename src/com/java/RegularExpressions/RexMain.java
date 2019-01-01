@@ -5,6 +5,10 @@ public class RexMain {
         String string = "I am a string, yes I am";
         String yourString = string.replaceAll("I", "You");
         System.out.println(yourString);
+        String alphaNumeric = "abcDeeefF123Ghg@ghkhk,JKo90898Y.incskjb";
+
+        System.out.println(alphaNumeric.replaceAll("^abcD", "Ttt"));
+
 
     }
 }
