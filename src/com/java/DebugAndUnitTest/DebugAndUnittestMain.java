@@ -9,5 +9,7 @@ public class DebugAndUnittestMain {
             utils.addChar(sb, 'a');
         }
         System.out.println(sb);
+        String str = "abcdef";
+        String result = utils.upperAndPrefix(utils.andSuffix(str));
     }
 }
