@@ -20,7 +20,7 @@ public class BankAccount {
         return balance;
     }
     public double withdraw(double amount, boolean branch) {
-        balance =- amount;
+        balance -= amount;
         return balance;
     }
 
