@@ -8,10 +8,6 @@ import java.sql.Statement;
 public class DataBaseTest {
 
     public static void main(String[] args) {
-//        try(Connection conn = DriverManager.getConnection("jdbc:sqlite:/Users/osmanjan/work/Java/Java_course/Java_Course/TestDB.db");
-//            Statement statement = conn.createStatement()){
-//            statement.execute("create table contacts (name TEXT, email TEXT, phone INTEGER)");
-//        }
         try {
             Connection conn = DriverManager.getConnection("jdbc:sqlite:/Users/osmanjan/work/Java/Java_course/Java_Course/TestDB.db");
             Statement statement = conn.createStatement();
